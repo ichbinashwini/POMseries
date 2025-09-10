@@ -11,7 +11,7 @@
 </listeners>
 
 
-	<test name="ProductInfo Page Test">
+	<test name="LoginPageTest Page Test">
 		<parameter name="browser" value="edge" />
 	
 		<classes>
@@ -19,14 +19,14 @@
 		</classes>
 	</test>
 
-<!--	<test name="Login Page Test_chrome">
+	<test name="CommonPageTest">
 	<parameter name="browser" value="chrome" />
 	
 		<classes>
-			<class name="com.qa.opencart.tests.LoginPageTest" />
+			<class name="com.qa.opencart.tests.CommonPageTest" />
 		</classes>
 	</test>
-	
+	<!--
 	<test name="Accounts Page Test">
 	<parameter name="browser" value="firefox" />
 

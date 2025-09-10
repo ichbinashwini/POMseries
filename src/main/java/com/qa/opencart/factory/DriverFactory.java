@@ -18,6 +18,7 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import com.qa.opencart.errors.AppError;
 import com.qa.opencart.exceptions.BrowserException;
+import com.qa.opencart.exceptions.FrameWorkException;
 
 public class DriverFactory {
 	public WebDriver driver;
@@ -86,15 +87,49 @@ public class DriverFactory {
 
 	public Properties initProp() {
 		prop = new Properties();
+		FileInputStream ip = null;
+
+		String envName = System.getProperty("env");
+		log.info("Env name =======>" + envName);
 		try {
-			FileInputStream ip = new FileInputStream("./src/test/resources/config/config.properties");
-			prop.load(ip);
-			
+			if (envName == null) {
+				log.warn("no env.. is passed, hence running tcs on QA environment...by default..");
+				ip = new FileInputStream("./src/test/resources/config/config.qa.properties");
+			}
+
+			else {
+				switch (envName.trim().toLowerCase()) {
+				case "qa":
+					ip = new FileInputStream("./src/test/resources/config/config.qa.properties");
+					break;
+				case "stage":
+					ip = new FileInputStream("./src/test/resources/config/config.stage.properties");
+					break;
+				case "uat":
+					ip = new FileInputStream("./src/test/resources/config/config.uat.properties");
+					break;
+				case "dev":
+					ip = new FileInputStream("./src/test/resources/config/config.dev.properties");
+					break;
+				case "prod":
+					ip = new FileInputStream("./src/test/resources/config/config.properties");
+					break;
+				default:
+					log.error("Env value is invalid...plz pass the right env value..");
+					throw new FrameWorkException("====INVALID ENVIRONMENT====");
+				}
+			}
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		}
+
+		try {
+			prop.load(ip);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		return prop;
 	}
 	
