@@ -13,6 +13,7 @@ import org.testng.annotations.Parameters;
 import com.aventstack.chaintest.plugins.ChainTestListener;
 import com.qa.opencart.factory.DriverFactory;
 import com.qa.opencart.pages.AccountPage;
+import com.qa.opencart.pages.CommonsPage;
 import com.qa.opencart.pages.LoginPage;
 import com.qa.opencart.pages.ProductInfoPage;
 import com.qa.opencart.pages.RegistrationPage;
@@ -28,6 +29,7 @@ public class BaseTest {
 	protected SearchResultPage searchResultPage;
 	protected ProductInfoPage productInfoPage;
 	protected RegistrationPage registrationPage;
+	protected CommonsPage commonsPage;
 	public Properties prop;
 	 
 	@Parameters({"browser"})
@@ -44,7 +46,7 @@ public class BaseTest {
 		
 		driver = df.initDriver(prop);
 		loginPage = new LoginPage(driver);
-
+		commonsPage = new CommonsPage(driver);
 	}
 	
 	@AfterMethod // will be running after each @test method

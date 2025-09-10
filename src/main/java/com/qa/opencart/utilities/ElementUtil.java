@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.qa.opencart.exceptions.ElementException;
+
 import java.time.Duration;
 import java.util.List;
 
@@ -25,14 +27,22 @@ public class ElementUtil {
 		return driver.findElement(elementLocator);
 	}
 
-	public void doSendKeys(By elementLocator, String value) {
-		getWebElement(elementLocator).sendKeys(value);
+	public void doSendKeys(By locator, String value) {
+	//	log.info("entering the value : " + value + " into locator: " + locator);
+		if (value == null) {
+		//	log.error("value : " + value + " is null...");
+			throw new ElementException("===value can not be null====");
+		}
+		WebElement ele = getWebElement(locator);
+		ele.clear();
+		ele.sendKeys(value);
 	}
 
 	public void doClick(By locator) {
 		getWebElement(locator).click();
 
 	}
+	
 
 	public String getElementText(By locator) {
 		return getWebElement(locator).getText();
@@ -204,6 +214,7 @@ public class ElementUtil {
 	}
 
 	// *********************** Fluent Wait methods ******************************
+	
 	public WebElement waitForElementVisibilityWithFW(By locator, int duration, int pollingTime) {
 		FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
 											.withTimeout(Duration.ofSeconds(duration))

@@ -4,7 +4,9 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
+import com.qa.opencart.constants.AppConstants;
 import com.qa.opencart.utilities.ElementUtil;
 
 import io.qameta.allure.Step;
@@ -21,7 +23,7 @@ public class LoginPage {
 	final By loginBtn = By.xpath("//input[@type='submit']");
 	final By forgotPasswordLink = By.linkText("Forgotten Password");
 	final By registrationLInk = By.linkText("Register");
-	
+	private final By loginErrorMessg = By.cssSelector("div.alert.alert-danger.alert-dismissible");
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
@@ -45,7 +47,7 @@ public class LoginPage {
 	}
 	
 
-	@Step("Logging in with username- {0} and password- {1}")
+	@Step("Logging in with correct username- {0} and password- {1}")
 	public AccountPage doLogin(String userEmail, String userPassword){
 		eUtil.doSendKeys(emailId, userEmail);
 		eUtil.doSendKeys(password, userPassword);
@@ -65,6 +67,25 @@ public class LoginPage {
 			return false;
 		}
 
+	}
+	
+	@Step("login with in-correct username: {0} and password: {1}")
+	public boolean doLoginWithInvalidCredentails(String invalidUN, String invalidPWD) {
+		log.info("Invalid application credentials: " + invalidUN + " : " + invalidPWD);
+		WebElement emailEle = eUtil.WaitForElementVisibility(emailId, AppConstants.DEFAULT_MEDIUM_WAIT);
+		emailEle.clear();
+		emailEle.sendKeys(invalidUN);
+		eUtil.doSendKeys(password, invalidPWD);
+		eUtil.doClick(loginBtn);
+		String errorMessg = eUtil.getElementText(loginErrorMessg);
+		log.info("invalid creds error messg: " + errorMessg);
+		if (errorMessg.contains(AppConstants.LOGIN_BLANK_CREDS_MESSG)) {
+			return true;
+		}
+		else if (errorMessg.contains(AppConstants.LOGIN_INVALID_CREDS_MESSG)) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Step("Navigetting to regidtration page...")
