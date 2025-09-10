@@ -3,6 +3,7 @@ package com.qa.opencart.utilities;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -202,6 +203,17 @@ public class ElementUtil {
 		}
 	}
 
+	// *********************** Fluent Wait methods ******************************
+	public WebElement waitForElementVisibilityWithFW(By locator, int duration, int pollingTime) {
+		FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+											.withTimeout(Duration.ofSeconds(duration))
+											.pollingEvery(Duration.ofSeconds(pollingTime))
+											.ignoring(NoSuchElementException.class)
+											.withMessage("======== ELEMENT NOT FOUND ON PAGE=======");
+		
+		return fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
+	
 	public String getPageTitle() {
 		return driver.getTitle();
 	}
