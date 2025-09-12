@@ -4,11 +4,20 @@
 <suite name="Opencart App Test Sanity Suite" verbose="4" thread-count="5"
 	parallel="tests">
 
+	<listeners>
+
+		<listener
+			class-name="com.aventstack.chaintest.plugins.ChainTestListener"></listener>
+		<listener class-name="com.qa.opencart.listeners.TestAllureListener"></listener>
+		<listener class-name="com.qa.opencart.listeners.AnnotationTransformer"></listener>
+
+	</listeners>
+
 	<test name="Login Page Test_chrome">
 		<parameter name="browser" value="chrome" />
 
 		<classes>
-			<class name="com.qa.opencart.tests.SearchResultPageTest" />
+			<class name="com.qa.opencart.tests.LoginPageTest" />
 		</classes>
 	</test>
 

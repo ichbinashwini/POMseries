@@ -23,67 +23,68 @@ import com.qa.opencart.exceptions.FrameWorkException;
 public class DriverFactory {
 	public WebDriver driver;
 	private Properties prop;
-
+	public static String highlightEle;
 
 	static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
-	private static final Logger log = LogManager.getLogger(DriverFactory.class); 
+	private static final Logger log = LogManager.getLogger(DriverFactory.class);
 
 	public WebDriver initDriver(Properties prop) {
-		
-		String browserName =prop.getProperty("browser");
-		String url =prop.getProperty("url");
-		log.info("Browser name "+ browserName);
-		
-		
+
+		String browserName = prop.getProperty("browser");
+		String url = prop.getProperty("url");
+		log.info("Browser name " + browserName);
+
+		highlightEle = prop.getProperty("highlight");
 		OptionsManager optionsManager = new OptionsManager(prop);
-		
+
 		switch (browserName.trim().toLowerCase()) {
 
 		case "chrome": {
-			//driver = new ChromeDriver();
+			// driver = new ChromeDriver();
 			tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
 			break;
 		}
 		case "firefox": {
-			//driver = new FirefoxDriver();
+			// driver = new FirefoxDriver();
 			tlDriver.set(new FirefoxDriver(optionsManager.getFireFoxOptions()));
 			break;
 		}
 
 		case "edge": {
-			//driver = new EdgeDriver();
+			// driver = new EdgeDriver();
 			tlDriver.set(new EdgeDriver(optionsManager.getEdgeOptions()));
 			break;
 
 		}
 
-		//****** For Macbook only *******
+		// ****** For Macbook only *******
 		case "safari": {
-			//driver = new SafariDriver();
+			// driver = new SafariDriver();
 			tlDriver.set(new SafariDriver());
 			break;
 
 		}
 		default:
-			//System.out.println("Selected driver is " + browserName);
-			log.error(AppError.INVALID_BROWSER_MESG + ":"+browserName) ;
+			// System.out.println("Selected driver is " + browserName);
+			log.error(AppError.INVALID_BROWSER_MESG + ":" + browserName);
 			throw new BrowserException("=========== Invalid browser selected ============");
 		}
 
 		getDriver().manage().deleteAllCookies();
 		getDriver().manage().window().maximize();
-		log.info("Selected browser is "+browserName );
+		log.info("Selected browser is " + browserName);
 		getDriver().get(url);
 
 		return getDriver();
 
 	}
-	
+
 	/**
 	 * This method is used to get the local copy of driver
+	 * 
 	 * @return
 	 */
-	public static WebDriver getDriver(){
+	public static WebDriver getDriver() {
 		return tlDriver.get();
 	}
 
@@ -134,7 +135,6 @@ public class DriverFactory {
 
 		return prop;
 	}
-	
 
 	/**
 	 * takescreenshot

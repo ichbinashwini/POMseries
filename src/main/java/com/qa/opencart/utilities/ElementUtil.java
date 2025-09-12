@@ -1,8 +1,16 @@
 package com.qa.opencart.utilities;
 
+import java.time.Duration;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -10,25 +18,37 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.opencart.exceptions.ElementException;
-import com.qa.opencart.pages.LoginPage;
-
-import java.time.Duration;
-import java.util.List;
+import com.qa.opencart.exceptions.FrameWorkException;
+import com.qa.opencart.factory.DriverFactory;
 
 public class ElementUtil {
 
 	private WebDriver driver;
 	private Actions actions;
 	private static final Logger log = LogManager.getLogger(ElementUtil.class);
+	private JavaScriptUtil jsUtil;
 
 	public ElementUtil(WebDriver driver) {
 
 		this.driver = driver;
 		actions = new Actions(driver);
+		jsUtil = new JavaScriptUtil(driver);
 	}
 
-	public WebElement getWebElement(By elementLocator) {
-		return driver.findElement(elementLocator);
+	public WebElement getWebElement(By locator) {
+		WebElement element = null;
+		try {
+			element = driver.findElement(locator);
+			log.info("element is found using : " + locator);
+			if (Boolean.parseBoolean(DriverFactory.highlightEle)) {
+				jsUtil.flash(element);
+			}
+		} catch (Exception e) {
+			FrameWorkException fe = new FrameWorkException("invalid locator " + " : " + locator);
+			log.info("Element not found using " + locator, fe);
+		}
+		return element;
+		
 	}
 
 	public void doSendKeys(By locator, String value) {
