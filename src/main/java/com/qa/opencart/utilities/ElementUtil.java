@@ -1,5 +1,7 @@
 package com.qa.opencart.utilities;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -8,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.opencart.exceptions.ElementException;
+import com.qa.opencart.pages.LoginPage;
 
 import java.time.Duration;
 import java.util.List;
@@ -16,6 +19,7 @@ public class ElementUtil {
 
 	private WebDriver driver;
 	private Actions actions;
+	private static final Logger log = LogManager.getLogger(ElementUtil.class);
 
 	public ElementUtil(WebDriver driver) {
 
@@ -28,9 +32,9 @@ public class ElementUtil {
 	}
 
 	public void doSendKeys(By locator, String value) {
-	//	log.info("entering the value : " + value + " into locator: " + locator);
+		log.info("entering the value : " + value + " into locator: " + locator);
 		if (value == null) {
-		//	log.error("value : " + value + " is null...");
+			log.error("value : " + value + " is null...");
 			throw new ElementException("===value can not be null====");
 		}
 		WebElement ele = getWebElement(locator);
@@ -42,7 +46,6 @@ public class ElementUtil {
 		getWebElement(locator).click();
 
 	}
-	
 
 	public String getElementText(By locator) {
 		return getWebElement(locator).getText();
@@ -214,17 +217,15 @@ public class ElementUtil {
 	}
 
 	// *********************** Fluent Wait methods ******************************
-	
+
 	public WebElement waitForElementVisibilityWithFW(By locator, int duration, int pollingTime) {
-		FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
-											.withTimeout(Duration.ofSeconds(duration))
-											.pollingEvery(Duration.ofSeconds(pollingTime))
-											.ignoring(NoSuchElementException.class)
-											.withMessage("======== ELEMENT NOT FOUND ON PAGE=======");
-		
+		FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(duration))
+				.pollingEvery(Duration.ofSeconds(pollingTime)).ignoring(NoSuchElementException.class)
+				.withMessage("======== ELEMENT NOT FOUND ON PAGE=======");
+
 		return fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
-	
+
 	public String getPageTitle() {
 		return driver.getTitle();
 	}
@@ -233,7 +234,6 @@ public class ElementUtil {
 		return driver.getCurrentUrl();
 	}
 
-	
 	public String waitforTitleIs(String title, int sec) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(sec));
 		try {

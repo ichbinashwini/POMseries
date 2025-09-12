@@ -23,16 +23,18 @@ import com.qa.opencart.exceptions.FrameWorkException;
 public class DriverFactory {
 	public WebDriver driver;
 	private Properties prop;
-	private static final Logger log = LogManager.getLogger(DriverFactory.class); 
+
 
 	static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
-
+	private static final Logger log = LogManager.getLogger(DriverFactory.class); 
 
 	public WebDriver initDriver(Properties prop) {
 		
 		String browserName =prop.getProperty("browser");
 		String url =prop.getProperty("url");
-		 
+		log.info("Browser name "+ browserName);
+		
+		
 		OptionsManager optionsManager = new OptionsManager(prop);
 		
 		switch (browserName.trim().toLowerCase()) {
@@ -63,7 +65,7 @@ public class DriverFactory {
 
 		}
 		default:
-			System.out.println("Selected driver is " + browserName);
+			//System.out.println("Selected driver is " + browserName);
 			log.error(AppError.INVALID_BROWSER_MESG + ":"+browserName) ;
 			throw new BrowserException("=========== Invalid browser selected ============");
 		}
