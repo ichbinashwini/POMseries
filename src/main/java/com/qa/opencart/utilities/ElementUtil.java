@@ -26,13 +26,13 @@ public class ElementUtil {
 	private WebDriver driver;
 	private Actions actions;
 	private static final Logger log = LogManager.getLogger(ElementUtil.class);
-	private JavaScriptUtil jsUtil;
+	private JavaScriptutil jsUtil;
 
 	public ElementUtil(WebDriver driver) {
 
 		this.driver = driver;
 		actions = new Actions(driver);
-		jsUtil = new JavaScriptUtil(driver);
+		jsUtil = new JavaScriptutil(driver);
 	}
 
 	public WebElement getWebElement(By locator) {
