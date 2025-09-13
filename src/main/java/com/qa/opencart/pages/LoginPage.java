@@ -42,7 +42,7 @@ public class LoginPage {
 	@Step("Getting login page URL")
 	public String getLoginPageURL() {
 		String url = eUtil.getPageURL();
-		log.info("Login page title is = " + url);
+		log.info("Login page title is => " + url);
 		return url;
 	}
 	
