@@ -19,14 +19,21 @@
 		</classes>
 	</test>-->
 
-	<test name="LoginPageNegativeTest">
+<!--	<test name="LoginPageNegativeTest">
 	<parameter name="browser" value="chrome" />
 	
 		<classes>
 			<class name="com.qa.opencart.tests.LoginPageNegativeTest" />
 		</classes>
-	</test>
+	</test>-->
 	
+	<test name="Login Page Test">
+	<parameter name="browser" value="chrome" />
+	
+		<classes>
+			<class name="com.qa.opencart.tests.LoginPageTest" />
+		</classes>
+	</test>
 	
 <!--	<test name="Accounts Page Test">
 	<parameter name="browser" value="firefox" />
@@ -53,13 +60,7 @@
 		</classes>
 	</test>
 	
-	<test name="Login Page Test_edge">
-	<parameter name="browser" value="edge" />
 	
-		<classes>
-			<class name="com.qa.opencart.tests.LoginPageTest" />
-		</classes>
-	</test>
 	
 	
 
