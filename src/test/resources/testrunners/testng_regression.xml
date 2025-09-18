@@ -6,7 +6,7 @@
 
 <listener class-name="com.aventstack.chaintest.plugins.ChainTestListener"></listener>
 <listener class-name="com.qa.opencart.listeners.TestAllureListener"></listener>
-<listener class-name="com.qa.opencart.listeners.AnnotationTransformer"></listener>
+<!-- <listener class-name="com.qa.opencart.listeners.AnnotationTransformer"></listener>--> <!--  Commented to removing Retry Logic -->
 
 </listeners>
 
