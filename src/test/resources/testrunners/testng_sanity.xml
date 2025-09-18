@@ -12,14 +12,22 @@
 		<!--<listener class-name="com.qa.opencart.listeners.AnnotationTransformer"></listener>-->
 
 	</listeners>
+		<test name="Accounts Page Test">
+		<parameter name="browser" value="chrome" />
 
-	<test name="Login Page Test_chrome">
+		<classes>
+			<class name="com.qa.opencart.tests.AccountPageTest" />
+		</classes>
+
+	</test>
+
+	<!--<test name="Login Page Test_chrome">
 		<parameter name="browser" value="chrome" />
 
 		<classes>
 			<class name="com.qa.opencart.tests.LoginPageTest" />
 		</classes>
-	</test>
+	</test>-->
 
 
 </suite>	
