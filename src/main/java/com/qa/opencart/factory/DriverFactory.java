@@ -106,10 +106,7 @@ public class DriverFactory {
 					ip = new FileInputStream("./src/test/resources/config/config.qa.properties");
 					break;
 				case "stage":
-					ip = new FileInputStream("./src/test/resources/config/config.stage.properties");
-					break;
-				case "uat":
-					ip = new FileInputStream("./src/test/resources/config/config.uat.properties");
+					ip = new FileInputStream("./src/test/resources/config/config.stag.properties");
 					break;
 				case "dev":
 					ip = new FileInputStream("./src/test/resources/config/config.dev.properties");
