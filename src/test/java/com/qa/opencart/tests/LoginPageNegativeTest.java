@@ -15,7 +15,7 @@ public class LoginPageNegativeTest extends BaseTest {
 		return new Object[][] {
 			{"testselelettttt@gmail.com", "test@123"},
 			{"march2024@open.com", "test@123"},
-			{"march2024@@open.com", "test@@123"},
+			{"march2024@@open.com", "test@@123"}
 			
 		};
 	}
