@@ -31,13 +31,13 @@
 		</classes>
 	</test>-->
 
-	<!--<test name="Login Page Test">
+	<test name="Login Page Test">
 		<parameter name="browser" value="chrome" />
 
 		<classes>
 			<class name="com.qa.opencart.tests.LoginPageTest" />
 		</classes>
-	</test>-->
+	</test>
 
 	<test name="Accounts Page Test">
 		<parameter name="browser" value="chrome" />
@@ -48,13 +48,13 @@
 
 	</test>
 	
-<test name="Search Test">
+<!--<test name="Search Test">
 		<parameter name="browser" value="chrome" />
 	
 		<classes>
 			<class name="com.qa.opencart.tests.SearchResultPageTest" />
 		</classes>
-	</test>
+	</test>-->
 
 
 	<!--	<test name="Login Page Test_firefox">
