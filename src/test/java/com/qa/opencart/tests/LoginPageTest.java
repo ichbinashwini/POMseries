@@ -40,7 +40,7 @@ public class LoginPageTest extends BaseTest {
 	@Test(priority = 2)
 	public void loginPageTitleTest() {
 		String actualTitle = loginPage.getLoginPagetitle();
-		Assert.assertEquals(actualTitle, "Account Login1");
+		Assert.assertEquals(actualTitle, "Account Login");
 
 	}
 	
