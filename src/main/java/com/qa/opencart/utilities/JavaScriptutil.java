@@ -28,5 +28,14 @@ public class JavaScriptutil {
 		} catch (InterruptedException e) {
 		}
 	}
+	
+	public void scrollToBottom() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+	}
+	public void scrollToTop() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollTo(0, 0);");
+	}
 
 }
